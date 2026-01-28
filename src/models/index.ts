@@ -1,9 +1,9 @@
-import { employee } from "./Employee.model.js";
-import { booking } from "./Booking.model.js";
-import { room } from "./Room.model.js";
+import { Employee } from "./Employee.model.js";
+import { Booking } from "./Booking.model.js";
+import { Room } from "./Room.model.js";
 
 export {
-  employee,
-  booking,
-  room
+  Employee,
+  Booking,
+  Room
 };

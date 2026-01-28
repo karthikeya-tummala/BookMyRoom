@@ -2,11 +2,13 @@ import mongoose, { Schema } from 'mongoose';
 
 const bookingSchema = new Schema({
     employee: {
+        type: Schema.Types.ObjectId,
         ref: 'Employee',
         required: true,
     },
 
     room: {
+        type: Schema.Types.ObjectId,
         ref: 'Room',
         required: true,
     },
@@ -33,4 +35,4 @@ const bookingSchema = new Schema({
 
 );
 
-export const booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
+export const Booking = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
