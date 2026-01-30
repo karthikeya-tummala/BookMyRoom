@@ -1,36 +1,47 @@
-import dotenv from 'dotenv';
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("UNHANDLED REJECTION:", reason);
+});
+
 import mongoose from "mongoose";
+import { env } from './config/env.js';
 import { app } from './app.js';
 import { connectDB } from "./db.js";
 
-dotenv.config();
+const startUp = async() => {
+  try {
+    await connectDB();
 
-const PORT: number = Number(process.env.PORT) || 3000;
+    const server = app.listen(env.PORT, () => {
+      console.log(`Server up on port ${env.PORT}`);
+    });
 
-// @ts-ignore
-await connectDB();
+    const shutdown = async (signal: string) => {
+      console.log(`\nReceived: ${signal}. Shutting down.`);
 
-const server = app.listen(PORT, () => {
-  console.log(`Server up on port ${PORT}`);
-});
+      server.close(async () => {
+        console.log('HTTP server down');
 
-const shutdown = async(signal: string) => {
-  console.log(`\nReceived: ${signal}. Shutting down.`);
-
-  server.close(async () => {
-    console.log('HTTP server down');
-
-    try {
-      await mongoose.connection.close();
-      console.log('Database connection closed');
-      process.exit(0);
-    } catch (error) {
-      console.error('Error during shut down: ', error);
-      process.exit(1);
+        try {
+          await mongoose.connection.close();
+          console.log('Database connection closed');
+          process.exit(0);
+        } catch (error) {
+          console.error('Error during shut down: ', error);
+          process.exit(1);
+        }
+      })
     }
-  })
+
+    process.on('SIGINT', shutdown);
+    process.on('SIGTERM', shutdown);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 }
 
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
-
+await startUp();

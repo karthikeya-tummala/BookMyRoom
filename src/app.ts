@@ -1,8 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
-import dotenv from "dotenv";
 import { router } from './routes/index.js';
-
-dotenv.config();
+import {ApiError} from "./utils/errors.js";
 
 export const app: Application = express();
 
@@ -17,12 +15,27 @@ app.get('/health', (_req, res) => {
   });
 });
 
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(error.stack);
+app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+
+  if (err instanceof ApiError) {
+    return res.status(err.statusCode).json({
+      success: false,
+      code: err.errorType,
+      message: err.message,
+    });
+  }
+
+  if (err instanceof Error) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
 
   return res.status(500).json({
     success: false,
-    message: error.message || 'Internal Server Error'
+    message: 'Internal Server Error'
   });
 });
 

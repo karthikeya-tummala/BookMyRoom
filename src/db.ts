@@ -1,14 +1,13 @@
+import { env } from "./config/env.js";
 import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URI;
-
-if (!MONGO_URI) {
+if (!env.MONGO_URI) {
   throw new Error('Missing database credentials');
 }
 
 export const connectDB = async(): Promise<void> => {
   try {
-    await mongoose.connect(MONGO_URI, {
+    await mongoose.connect(env.MONGO_URI, {
       dbName: process.env.DBNAME,
     });
     console.log('Database connected');
