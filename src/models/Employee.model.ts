@@ -1,9 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
-enum UserRole {
-    Admin = 'Admin',
-    Employee = 'Employee',
-}
+export const USER_ROLES = {
+    Admin: 'Admin',
+    Employee: 'Employee',
+} as const;
+
+export type UserRole = typeof USER_ROLES[keyof typeof  USER_ROLES];
 
 const userSchema = new Schema({
     name: {
@@ -28,8 +30,8 @@ const userSchema = new Schema({
 
     role: {
         type: String,
-        enum: Object.values(UserRole),
-        default: UserRole.Employee,
+        enum: Object.values(USER_ROLES),
+        default: USER_ROLES.Employee,
         required: true,
     },
 }, { timestamps: true }

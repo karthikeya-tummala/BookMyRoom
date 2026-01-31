@@ -2,13 +2,14 @@ import { Request, Response } from 'express';
 import { loginSchema } from "../../validators/auth.schema.js";
 import {AuthService} from "../../services/authService.js";
 import {ApiError} from "../../utils/errors.js";
+import {z} from "zod";
 
 // TODO: Refresh token implementation
 export const login = async (req: Request, res: Response) => {
   const result = loginSchema.safeParse(req.body);
 
   if(!result.success) {
-    throw new ApiError("VALIDATION_ERROR");
+    throw new ApiError("VALIDATION_ERROR", z.treeifyError(result.error));
   }
 
   const token = await AuthService.login(result.data);

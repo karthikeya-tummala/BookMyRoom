@@ -57,7 +57,7 @@ export class AuthService {
       password: hashedPassword
     });
 
-    return employee;
+    return { name: employee.name };
   }
 
 

@@ -26,12 +26,13 @@ export type ErrorCode = keyof typeof ERROR_CODES;
 export class ApiError extends Error {
     statusCode: number;
     errorType: ErrorCode;
+    errors: any;
 
-  constructor(errorType: ErrorCode) {
+  constructor(errorType: ErrorCode, errors?: any) {
     super(ERROR_CODES[errorType].message);
     this.statusCode = ERROR_CODES[errorType].status;
     this.errorType = errorType
-    console.log("Type:", this.errorType);
-    console.log("StatusCode:", this.statusCode);
+    this.errors = errors
   }
 }
+
