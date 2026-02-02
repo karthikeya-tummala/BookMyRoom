@@ -1,12 +1,18 @@
 export const ERROR_CODES = {
+
+  VALIDATION_ERROR: {
+    status: 400,
+    message: "Invalid Request Payload",
+  },
+
   INVALID_CREDENTIALS: {
     status: 401,
     message: "Invalid login credentials",
   },
 
-  VALIDATION_ERROR: {
-    status: 400,
-    message: "Invalid Request Payload",
+  NOT_FOUND: {
+    status: 404,
+    message: "Resource not found",
   },
 
   EMAIL_ALREADY_IN_USE: {

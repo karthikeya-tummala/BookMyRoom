@@ -15,6 +15,10 @@ app.get('/health', (_req, res) => {
   });
 });
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  next(new ApiError("NOT_FOUND"));
+});
+
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
 
   if (err instanceof ApiError) {

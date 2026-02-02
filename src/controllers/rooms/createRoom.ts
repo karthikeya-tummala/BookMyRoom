@@ -8,7 +8,7 @@ export const createRoom = async (req: Request, res: Response) => {
   const result = createRoomSchema.safeParse(req.body);
 
   if (!result.success) {
-    throw new ApiError("VALIDATION_ERROR", z.treeifyError(result.error));
+    throw new ApiError("VALIDATION_ERROR", z.flattenError(result.error));
   }
 
   const createdRoom = await RoomService.createRoom(result.data);

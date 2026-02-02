@@ -9,7 +9,7 @@ export const login = async (req: Request, res: Response) => {
   const result = loginSchema.safeParse(req.body);
 
   if(!result.success) {
-    throw new ApiError("VALIDATION_ERROR", z.treeifyError(result.error));
+    throw new ApiError("VALIDATION_ERROR", z.prettifyError(result.error));
   }
 
   const token = await AuthService.login(result.data);
