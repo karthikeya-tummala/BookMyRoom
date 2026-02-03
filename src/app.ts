@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import { router } from './routes/index.js';
 import {ApiError, ERROR_CODES} from "./utils/errors.js";
 
+
 export const app: Application = express();
 
 app.use(express.json());

@@ -5,9 +5,12 @@ export const loginSchema = z.object({
   password: z.string().nonempty().min(8)
 });
 
-export const signUpSchema = z.object({
-  name: z.string().nonempty(),
-  email: z.string().nonempty(),
+export const createEmployeeSchema = z.object({
+  name: z.string().nonempty().trim(),
+  email: z.string().nonempty().trim(),
   password: z.string().nonempty(),
+  role: z.string().optional(),
 
 });
+
+export type EmployeePayload = z.infer<typeof createEmployeeSchema>;
