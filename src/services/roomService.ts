@@ -7,14 +7,40 @@ import {ApiError} from "../utils/errors.js";
 type CreateRoomPayload = z.infer<typeof createRoomSchema>;
 
 export class RoomService {
-  static async getRooms({ pagination, filters }: any) {
+
+  static async getRooms({ pagination, filters, sort }: any) {
     const query = filters ?? {};
+    const { page, limit, skip } = pagination;
 
-    const rooms = await Room.find(query)
-    .skip(pagination.skip)
-    .limit(pagination.limit);
+    const [result] = await Room.aggregate([
+      { $match: query },
+      { $sort: sort },
+      {
+        $facet: {
+          data: [
+            { $skip: skip },
+            { $limit: limit },
+          ],
+          metadata: [
+            { $count: 'totalDocuments' },
+          ],
+        },
+      },
+    ]);
 
-    return rooms;
+    const totalDocuments = result.metadata[0]?.totalDocuments ?? 0;
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return {
+      data: result.data,
+      pagination: {
+        currentPage: page,
+        totalDocuments,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    };
   }
 
   static async getById(id: string) {

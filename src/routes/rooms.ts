@@ -1,11 +1,13 @@
-import { Router } from "express";
-import { getRooms, createRoom, updateRoom, deleteRoom } from "../controllers/rooms/index.js";
+import {Router} from "express";
+import {getRooms, createRoom, updateRoom, deleteRoom, getRoomById} from "../controllers/rooms/index.js";
 import {paginate} from "../middlewares/paginate.js";
+import {validateId} from "../middlewares/validateId.js";
 
 export const roomRouter = Router();
 
-roomRouter.get('/', paginate, getRooms);
 roomRouter.post('/', createRoom);
-roomRouter.patch('/:id', updateRoom);
-roomRouter.delete('/:id', deleteRoom);
+roomRouter.get('/', paginate, getRooms);
+roomRouter.get('/:id', validateId, getRoomById);
+roomRouter.patch('/:id', validateId, updateRoom);
+roomRouter.delete('/:id', validateId, deleteRoom);
 
