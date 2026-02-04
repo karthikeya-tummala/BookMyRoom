@@ -47,7 +47,7 @@ export class RoomService {
     const start = new Date(startTime);
     const end = new Date(endTime);
     const bookingDate = new Date(date);
-    bookingDate.setHours(0, 0, 0, 0);
+    bookingDate.setUTCHours(0, 0, 0, 0);
 
     const conflictingRoomIds = await Booking.distinct("room", {
       date: bookingDate,
