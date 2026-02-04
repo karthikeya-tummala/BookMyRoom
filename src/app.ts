@@ -5,6 +5,7 @@ import {ApiError, ERROR_CODES} from "./utils/errors.js";
 
 export const app: Application = express();
 
+app.set("query parser", "extended");
 app.use(express.json());
 
 app.use(router);
