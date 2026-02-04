@@ -43,11 +43,14 @@ export class RoomService {
     };
   }
 
-  static async getAvailableRooms({pagination, filters, sort, startTime, endTime}: any) {
+  static async getAvailableRooms({pagination, filters, sort, date, startTime, endTime}: any) {
     const start = new Date(startTime);
     const end = new Date(endTime);
+    const bookingDate = new Date(date);
+    bookingDate.setHours(0, 0, 0, 0);
 
     const conflictingRoomIds = await Booking.distinct("room", {
+      date: bookingDate,
       startTime: { $lt: end },
       endTime: { $gt: start },
     });

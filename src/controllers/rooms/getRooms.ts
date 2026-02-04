@@ -15,13 +15,14 @@ interface RoomQuery {
     >
   >;
   search?: string;
+  date?: string;
   startTime?: string;
   endTime?: string;
 }
 
 export const getRooms = async (req: Request, res: Response) => {
 
-  const { sort = {}, filter = {}, search, startTime, endTime } = req.query as RoomQuery;
+  const { sort = {}, filter = {}, search, date: date_of_booking, startTime, endTime } = req.query as RoomQuery;
 
   const filters: any = {};
   const allowedOps: FilterOp[] = ["gt", "gte", "lt", "lte", "eq"];
@@ -60,7 +61,8 @@ export const getRooms = async (req: Request, res: Response) => {
     },
   });
 
-  if (startTime && endTime) {
+  if (date_of_booking && startTime && endTime) {
+    const date = new Date(date_of_booking);
     const start = new Date(startTime);
     const end = new Date(endTime);
 
@@ -68,6 +70,7 @@ export const getRooms = async (req: Request, res: Response) => {
       pagination: (req as any).paginate,
       filters,
       sort: sortQuery,
+      date,
       startTime: start,
       endTime: end
     })
