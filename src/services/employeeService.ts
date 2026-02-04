@@ -7,17 +7,49 @@ import mongoose from "mongoose";
 
 export class EmployeeService {
 
-  static async get({ pagination, filters }: any) {
-    const query = filters ?? {};
+  static async get({ pagination, filters, sort }: any) {
 
-    const employees = await Employee.find(query)
-    .collation({ locale: 'en', strength: 2 })
-    .sort({ role: 1, name: 1, _id: 1 })
-    .skip(pagination.skip)
-    .limit(pagination.limit)
-    .select('name email role');
+    const { skip, limit, page } = pagination;
 
-    return employees;
+    const [result] = await Employee.aggregate([
+      { $match: filters },
+
+      {
+        $facet: {
+          data: [
+            { $sort: sort },
+            { $skip: skip },
+            { $limit: limit },
+            {
+              $project: {
+                name: 1,
+                email: 1,
+                role: 1,
+              },
+            },
+          ],
+          totalCount: [
+            { $count: "count" },
+          ],
+        },
+      },
+    ])
+    .collation({ locale: "en", strength: 2 });
+
+    const totalDocuments = result.totalCount[0]?.count ?? 0;
+    const totalPages = Math.ceil(totalDocuments / limit);
+
+    return {
+      data: result.data,
+      pagination: {
+        currentPage: page,
+        totalDocuments,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    };
+
   }
 
   static async getById(id: string) {

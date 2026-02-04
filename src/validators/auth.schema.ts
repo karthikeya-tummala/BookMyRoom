@@ -6,10 +6,10 @@ export const loginSchema = z.object({
 });
 
 export const createEmployeeSchema = z.object({
-  name: z.string().nonempty().trim(),
-  email: z.string().nonempty().trim(),
+  name: z.string().trim().nonempty(),
+  email: z.string().trim().nonempty(),
   password: z.string().nonempty(),
-  role: z.string().optional(),
+  role: z.string().trim().optional(),
 
 });
 

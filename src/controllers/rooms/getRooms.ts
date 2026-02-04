@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { RoomService } from "../../services/roomService.js";
+import {parseSort} from "../../utils/sortParser.js";
+import {escapeRegex} from "../../utils/escapeRegex.js";
 
 type SortOrder = "asc" | "desc";
 type FilterOp = "gt" | "gte" | "lt" | "lte" | "eq";
@@ -43,24 +45,19 @@ export const getRooms = async (req: Request, res: Response) => {
   }
 
   if (search) {
-    filters.name = { $regex: search, $options: "i" };
+    filters.name = { $regex: escapeRegex(search), $options: "i" };
   }
 
-  const sortQuery: Record<string, 1 | -1> = {};
+  const sortQuery = parseSort({
+    customSort: sort,
+    allowed: ["floor", "capacity"] as const,
+    defaultSort: {
+      floor: 1,
+      capacity: 1,
+      _id: -1,
+    },
+  });
 
-  for (const field of ["floor", "capacity"] as const) {
-    if (sort[field] === "asc") {
-      sortQuery[field] = 1;
-    } else if (sort[field] === "desc") {
-      sortQuery[field] = -1;
-    }
-  }
-
-  if (!Object.keys(sortQuery).length) {
-    sortQuery.floor = 1;
-    sortQuery.capacity = 1;
-    sortQuery.createdAt = -1;
-  }
 
   const rooms = await RoomService.getRooms({
     pagination: (req as any).paginate,
