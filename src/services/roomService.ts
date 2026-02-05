@@ -3,12 +3,23 @@ import {createRoomSchema} from "../validators/room.schema.js";
 import {z} from "zod";
 import {RoomType} from "../models/Room.model.js";
 import {ApiError} from "../utils/errors.js";
+import mongoose from "mongoose";
 
 type CreateRoomPayload = z.infer<typeof createRoomSchema>;
 
 export class RoomService {
+  // TODO: Design DTO
 
-  static async getRooms({pagination, filters, sort}: any) {
+  static async getRooms({pagination, filters, sort}: any): Promise<{
+    data: RoomType[];
+    pagination: {
+      currentPage: number;
+      totalDocuments: number;
+      totalPages: number;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+    };
+  }> {
     const query = filters ?? {};
     const {page, limit, skip} = pagination;
 
@@ -43,7 +54,16 @@ export class RoomService {
     };
   }
 
-  static async getAvailableRooms({pagination, filters, sort, date, startTime, endTime}: any) {
+  static async getAvailableRooms({pagination, filters, sort, date, startTime, endTime}: any): Promise<{
+    data: RoomType[];
+    pagination: {
+      currentPage: number;
+      totalDocuments: number;
+      totalPages: number;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+    };
+  }> {
     const start = new Date(startTime);
     const end = new Date(endTime);
     const bookingDate = new Date(date);
@@ -85,6 +105,11 @@ export class RoomService {
   }
 
   static async getById(id: string) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError("VALIDATION_ERROR");
+    }
+
     const room = await Room.findById(id);
 
     if (!room) {
@@ -100,6 +125,11 @@ export class RoomService {
   }
 
   static async updateRoom(id: string, payload: Partial<RoomType>) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError("VALIDATION_ERROR");
+    }
+
     const room = await Room.findByIdAndUpdate(id, {$set: payload}, {new: true});
 
     if (!room) {
@@ -110,6 +140,11 @@ export class RoomService {
   }
 
   static async deleteRoom(id: string) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError("VALIDATION_ERROR");
+    }
+
     const room = await Room.findByIdAndDelete(id);
 
     if (!room) {

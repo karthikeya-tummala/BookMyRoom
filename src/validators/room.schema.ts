@@ -22,3 +22,4 @@ export const createRoomSchema = z.object({
 export const updateRoomSchema = createRoomSchema.partial();
 
 export type CreateRoomPayload = z.infer<typeof createRoomSchema>;
+

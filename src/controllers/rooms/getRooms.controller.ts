@@ -2,27 +2,19 @@ import { Request, Response } from "express";
 import { RoomService } from "../../services/roomService.js";
 import {parseSort} from "../../utils/sortParser.js";
 import {escapeRegex} from "../../utils/escapeRegex.js";
+import {FilterOp, RoomQuery} from "../../validators/room.query.js";
 
-type SortOrder = "asc" | "desc";
-type FilterOp = "gt" | "gte" | "lt" | "lte" | "eq";
 
-interface RoomQuery {
-  sort?: Partial<Record<"floor" | "capacity", SortOrder>>;
-  filter?: Partial<
-    Record<
-      "floor" | "capacity",
-      Partial<Record<FilterOp, string>>
-    >
-  >;
-  search?: string;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-}
+export const getRoomsController = async (req: Request, res: Response) => {
 
-export const getRooms = async (req: Request, res: Response) => {
-
-  const { sort = {}, filter = {}, search, date: date_of_booking, startTime, endTime } = req.query as RoomQuery;
+  const {
+    sort = {},
+    filter = {},
+    search,
+    date: date_of_booking,
+    startTime,
+    endTime
+  } = req.query as RoomQuery;
 
   const filters: any = {};
   const allowedOps: FilterOp[] = ["gt", "gte", "lt", "lte", "eq"];

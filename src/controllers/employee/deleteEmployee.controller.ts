@@ -9,8 +9,5 @@ export const deleteEmployee = async (
 ) => {
   await EmployeeService.delete(req.params.id);
 
-  return res.status(200).json({
-    success: true,
-    message: "Employee deleted successfully",
-  });
+  return res.status(204);
 };

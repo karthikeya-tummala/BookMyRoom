@@ -30,6 +30,8 @@ const bookingSchema = new Schema({
 
   purpose: String,
 
+  isDeleted: Boolean
+
   }, {timestamps: true}
 );
 

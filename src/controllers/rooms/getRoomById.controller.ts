@@ -3,7 +3,7 @@ import { RoomService } from "../../services/roomService.js";
 
 type Params = { id: string };
 
-export const getRoomById = async (
+export const getRoomByIdController = async (
   req: Request<Params>,
   res: Response
 ) => {

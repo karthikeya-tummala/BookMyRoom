@@ -1,10 +1,13 @@
-import {createBooking} from './createBooking.js'
-import {getBookings} from './getBooking.js'
-
+import {createBookingController} from './createBooking.controller.js'
+import {getBookings} from './getBooking.controller.js'
+import {updateBookingController} from './updateBooking.controller.js'
+import {deleteBookingController} from "./deleteBooking.controller.js";
 
 export {
-  createBooking,
-  getBookings
+  createBookingController,
+  getBookings,
+  updateBookingController,
+  deleteBookingController
 
 }
 

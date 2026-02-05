@@ -96,6 +96,11 @@ export class EmployeeService {
   }
 
   static async update(id: string, payload: Partial<EmployeePayload>) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError("VALIDATION_ERROR");
+    }
+
     const employee = await Employee.findById(id);
     if (!employee) {
       throw new ApiError("NOT_FOUND");
@@ -120,6 +125,11 @@ export class EmployeeService {
   }
 
   static async delete(id: string) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new ApiError("VALIDATION_ERROR");
+    }
+
     const employee = await Employee.findByIdAndDelete(id);
 
     if (!employee) {

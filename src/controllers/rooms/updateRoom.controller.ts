@@ -4,7 +4,7 @@ import { ApiError } from "../../utils/errors.js";
 import {z} from "zod";
 import {RoomService} from "../../services/roomService.js";
 
-export const updateRoom = async (req: Request<{ id: string }>, res: Response) => {
+export const updateRoomController = async (req: Request<{ id: string }>, res: Response) => {
   const result = updateRoomSchema.safeParse(req.body);
   const { id } = req.params;
 

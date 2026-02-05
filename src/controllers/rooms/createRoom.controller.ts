@@ -4,7 +4,7 @@ import {ApiError} from "../../utils/errors.js";
 import {z} from "zod";
 import {RoomService} from "../../services/roomService.js";
 
-export const createRoom = async (req: Request, res: Response) => {
+export const createRoomController = async (req: Request, res: Response) => {
   const result = createRoomSchema.safeParse(req.body);
 
   if (!result.success) {

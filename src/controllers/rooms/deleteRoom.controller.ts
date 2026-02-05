@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import {RoomService} from "../../services/roomService.js";
 import {ApiError} from "../../utils/errors.js";
 
-export const deleteRoom = async (req: Request<{ id: string }>, res: Response) => {
+export const deleteRoomController = async (req: Request<{ id: string }>, res: Response) => {
   const { id: roomId } = req.params;
 
   const data = await RoomService.deleteRoom(roomId);

@@ -3,8 +3,7 @@ import {createBookingSchema} from "../../validators/booking.schema.js";
 import {ApiError} from "../../utils/errors.js";
 import {BookingService} from "../../services/bookingService.js";
 
-export const createBooking = async(req: Request, res: Response) => {
-  // TODO: Add collision detection
+export const createBookingController = async(req: Request, res: Response) => {
 
   if (!req.user) {
     throw new ApiError("INVALID_CREDENTIALS");

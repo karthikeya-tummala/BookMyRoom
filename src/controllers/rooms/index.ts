@@ -1,15 +1,15 @@
-import { createRoom } from "./createRoom.js";
-import { getRooms } from "./getRooms.js";
-import { getRoomById } from "./getRoomById.js";
-import { updateRoom } from "./updateRoom.js";
-import { deleteRoom } from "./deleteRoom.js";
+import { createRoomController } from "./createRoom.controller.js";
+import { getRoomsController } from "./getRooms.controller.js";
+import { getRoomByIdController } from "./getRoomById.controller.js";
+import { updateRoomController } from "./updateRoom.controller.js";
+import { deleteRoomController } from "./deleteRoom.controller.js";
 
 
 export {
-  createRoom,
-  getRooms,
-  getRoomById,
-  updateRoom,
-  deleteRoom
+  createRoomController,
+  getRoomsController,
+  getRoomByIdController,
+  updateRoomController,
+  deleteRoomController
 
 };

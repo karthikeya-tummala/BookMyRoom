@@ -10,6 +10,11 @@ export const ERROR_CODES = {
     message: "Invalid login credentials",
   },
 
+  FORBIDDEN: {
+    status: 403,
+    message: "Unauthorised to perform the action",
+  },
+
   NOT_FOUND: {
     status: 404,
     message: "Resource not found",
@@ -18,6 +23,11 @@ export const ERROR_CODES = {
   EMAIL_ALREADY_IN_USE: {
     status: 409,
     message: "Email ID already in use",
+  },
+
+  BOOKING_CONFLICT: {
+    status: 409,
+    message: "Room is not available for the selected time slot",
   },
 
   INTERNAL: {
