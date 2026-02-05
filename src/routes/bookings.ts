@@ -3,12 +3,13 @@ import {createBookingController, deleteBookingController, getBookings, updateBoo
 import {authMiddleware} from "../middlewares/authMiddleware.js";
 import {paginate} from "../middlewares/paginate.js";
 import {getBookingById} from "../controllers/bookings/getBookingById.controller.js";
+import {validateId} from "../middlewares/validateId.js";
 
 export const bookingRouter = Router();
 
 bookingRouter.post('/', authMiddleware, createBookingController);
 bookingRouter.get('/', authMiddleware, paginate, getBookings);
-bookingRouter.get('/:id', authMiddleware, getBookingById);
-bookingRouter.patch('/:id', authMiddleware, updateBookingController);
-bookingRouter.delete('/:id', authMiddleware, deleteBookingController);
+bookingRouter.get('/:id', validateId, authMiddleware, getBookingById);
+bookingRouter.patch('/:id', validateId, authMiddleware, updateBookingController);
+bookingRouter.delete('/:id', validateId, authMiddleware, deleteBookingController);
 

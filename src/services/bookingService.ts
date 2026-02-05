@@ -101,11 +101,7 @@ export class BookingService {
   }
 
   static async getById(id: string) {
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ApiError("VALIDATION_ERROR");
-    }
-
+    // TODO: Lock access to owners or admins. Everyone can see a booking by id now
     const booking = await Booking.findById(id)
     .populate("employee", "name role")
     .populate("room", "name floor capacity type amenities");
@@ -122,10 +118,6 @@ export class BookingService {
     payload: Partial<UpdateBookingSchema>,
     user: { id: string; role: string }
   ): Promise<BookingDTO> {
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ApiError("VALIDATION_ERROR");
-    }
 
     const booking = await Booking.findById(id);
 
@@ -163,10 +155,6 @@ export class BookingService {
     id: string,
     user: { id: string; role: string }
   ): Promise<void> {
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ApiError("VALIDATION_ERROR");
-    }
 
     const booking = await Booking.findById(id);
 
