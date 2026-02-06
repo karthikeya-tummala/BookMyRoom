@@ -2,8 +2,7 @@ import {CreateBookingSchema, UpdateBookingSchema} from "../validators/booking.sc
 import {Booking} from "../models/index.js";
 import {BookingDTO} from "../types/booking.dto.js";
 import {ApiError} from "../utils/errors.js";
-import {USER_ROLES} from "../models/Employee.model.js";
-import mongoose from "mongoose";
+import {USER_ROLES, UserRole} from "../models/Employee.model.js";
 
 export class BookingService {
 
@@ -100,14 +99,24 @@ export class BookingService {
     };
   }
 
-  static async getById(id: string) {
-    // TODO: Lock access to owners or admins. Everyone can see a booking by id now
+  static async getById(
+    id: string,
+    user: { id: string; role: UserRole }
+  ) {
+
     const booking = await Booking.findById(id)
     .populate("employee", "name role")
     .populate("room", "name floor capacity type amenities");
 
     if (!booking) {
       throw new Error("Booking not found");
+    }
+
+    const isAdmin = user.role === USER_ROLES.Admin;
+    const isOwner = booking.employee._id.toString() === user.id;
+
+    if (!isAdmin && !isOwner) {
+      throw new ApiError("FORBIDDEN");
     }
 
     return this.toDTO(booking);
@@ -215,7 +224,9 @@ export class BookingService {
       endTime <= startTime ||
       startTime < now
     ) {
-      throw new ApiError("VALIDATION_ERROR");
+      throw new ApiError("VALIDATION_ERROR", {
+        reason: "Invalid date and time formats",
+      });
     }
   }
 

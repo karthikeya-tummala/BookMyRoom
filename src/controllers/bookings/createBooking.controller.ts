@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {createBookingSchema} from "../../validators/booking.schema.js";
 import {ApiError} from "../../utils/errors.js";
 import {BookingService} from "../../services/bookingService.js";
+import {z} from "zod";
 
 export const createBookingController = async(req: Request, res: Response) => {
 
@@ -15,14 +16,14 @@ export const createBookingController = async(req: Request, res: Response) => {
   });
 
   if (!parsed.success) {
-    throw new ApiError("VALIDATION_ERROR");
+    throw new ApiError("VALIDATION_ERROR", z.prettifyError(parsed.error));
   }
 
   const booking = await BookingService.create(parsed.data);
 
-  return res.status(200).json({
+  return res.status(201).json({
     success: true,
-    message: "Fetched room bookings successfully",
+    message: "Room booked successfully",
     data: booking
   })
 

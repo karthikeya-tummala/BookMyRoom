@@ -13,5 +13,8 @@ export const deleteBookingController = async (
     role: user.role,
   });
 
-  return res.status(204).send();
+  return res.status(200).json({
+    success: true,
+    message: "Deleted Booking successfully"
+  });
 };
