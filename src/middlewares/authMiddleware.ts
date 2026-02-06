@@ -38,7 +38,12 @@ export const authMiddleware = (
     };
 
     next();
-  } catch {
+  } catch(err: any) {
+
+    if (err instanceof Error && err.name === "TokenExpiredError") {
+      throw new ApiError("AUTH_TIMEOUT");
+    }
+
     throw new ApiError("INVALID_CREDENTIALS");
   }
 };

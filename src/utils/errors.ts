@@ -5,6 +5,11 @@ export const ERROR_CODES = {
     message: "Invalid Request Payload",
   },
 
+  AUTH_TIMEOUT: {
+    status: 401,
+    message: "Token Expired"
+  },
+
   INVALID_CREDENTIALS: {
     status: 401,
     message: "Invalid login credentials",
