@@ -6,7 +6,7 @@ import {BookingService} from "../../services/bookingService.js";
 export const createBookingController = async(req: Request, res: Response) => {
 
   if (!req.user) {
-    throw new ApiError("INVALID_CREDENTIALS");
+    throw new ApiError("FORBIDDEN");
   }
 
   const parsed = createBookingSchema.safeParse({
