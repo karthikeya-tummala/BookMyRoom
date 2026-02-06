@@ -8,12 +8,14 @@ import {
 } from "../controllers/employee/index.js";
 import {paginate} from "../middlewares/paginate.js";
 import {validateId} from "../middlewares/validateId.js";
+import {authMiddleware} from "../middlewares/authMiddleware.js";
+import {adminMiddleware} from "../middlewares/adminMiddleware.js";
 
 export const employeeRouter = Router();
 
-employeeRouter.post('/', createEmployee);
-employeeRouter.get('/', paginate, getEmployees);
-employeeRouter.get('/:id', validateId, getEmployeeById);
-employeeRouter.patch('/:id', validateId, updateEmployee);
-employeeRouter.delete('/:id', validateId, deleteEmployee);
+employeeRouter.post('/', authMiddleware, adminMiddleware, createEmployee);
+employeeRouter.get('/', authMiddleware, adminMiddleware, paginate, getEmployees);
+employeeRouter.get('/:id', validateId, authMiddleware, adminMiddleware, getEmployeeById);
+employeeRouter.patch('/:id', validateId, authMiddleware, adminMiddleware, updateEmployee);
+employeeRouter.delete('/:id', validateId, authMiddleware, adminMiddleware, deleteEmployee);
 

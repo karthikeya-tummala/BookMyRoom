@@ -3,12 +3,13 @@ import {getRoomsController, createRoomController, updateRoomController, deleteRo
 import {paginate} from "../middlewares/paginate.js";
 import {validateId} from "../middlewares/validateId.js";
 import {adminMiddleware} from "../middlewares/adminMiddleware.js";
+import {authMiddleware} from "../middlewares/authMiddleware.js";
 
 export const roomRouter = Router();
 
-roomRouter.post('/', adminMiddleware, createRoomController);
+roomRouter.post('/', authMiddleware, adminMiddleware, createRoomController);
 roomRouter.get('/', paginate, getRoomsController);
-roomRouter.get('/:id', validateId, adminMiddleware, getRoomByIdController);
-roomRouter.patch('/:id', validateId, adminMiddleware, updateRoomController);
-roomRouter.delete('/:id', validateId, adminMiddleware, deleteRoomController);
+roomRouter.get('/:id', validateId, authMiddleware, adminMiddleware, getRoomByIdController);
+roomRouter.patch('/:id', validateId, authMiddleware, adminMiddleware, updateRoomController);
+roomRouter.delete('/:id', validateId, authMiddleware, adminMiddleware, deleteRoomController);
 
