@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { RoomService } from "../../services/roomService.js";
-import {parseSort} from "../../utils/sortParser.js";
-import {escapeRegex} from "../../utils/escapeRegex.js";
-import {FilterOp, RoomQuery} from "../../validators/room.query.js";
+import { RoomService } from "../../../services/roomService.js";
+import {parseSort} from "../../../utils/sortParser.js";
+import {escapeRegex} from "../../../utils/escapeRegex.js";
+import {FilterOp, RoomQuery} from "../../../validators/room.query.js";
 
 
 export const getRoomsController = async (req: Request, res: Response) => {

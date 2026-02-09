@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import {updateBookingSchema} from "../../validators/booking.schema.js";
-import {ApiError} from "../../utils/errors.js";
-import {BookingService} from "../../services/bookingService.js";
+import {updateBookingSchema} from "../../../validators/booking.schema.js";
+import {ApiError} from "../../../utils/errors.js";
+import {BookingService} from "../../../services/bookingService.js";
 import { z } from "zod";
 
 export const updateBookingController = async (req: Request<{id: string}>, res: Response) => {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { loginSchema } from "../../validators/auth.schema.js";
-import {AuthService} from "../../services/authService.js";
-import {ApiError} from "../../utils/errors.js";
+import { loginSchema } from "../../../validators/auth.schema.js";
+import {AuthService} from "../../../services/authService.js";
+import {ApiError} from "../../../utils/errors.js";
 import {z} from "zod";
 
 // TODO: Refresh token implementation

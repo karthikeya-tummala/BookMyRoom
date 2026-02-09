@@ -1,8 +1,7 @@
 import { Router } from "express";
-import {createBookingController, deleteBookingController, getBookings, updateBookingController} from "../controllers/bookings/index.js";
+import {createBookingController, deleteBookingController, getBookings, getBookingById, updateBookingController} from "../controllers/bookings/v1/index.js";
 import {authMiddleware} from "../middlewares/authMiddleware.js";
 import {paginate} from "../middlewares/paginate.js";
-import {getBookingById} from "../controllers/bookings/getBookingById.controller.js";
 import {validateId} from "../middlewares/validateId.js";
 
 export const bookingRouter = Router();

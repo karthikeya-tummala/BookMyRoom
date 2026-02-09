@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import {BookingService} from "../../services/bookingService.js";
-import {parseSort} from "../../utils/sortParser.js";
-import {USER_ROLES} from "../../models/Employee.model.js";
+import {BookingService} from "../../../services/bookingService.js";
+import {parseSort} from "../../../utils/sortParser.js";
+import {USER_ROLES} from "../../../models/Employee.model.js";
 import mongoose from "mongoose";
 
 export const getBookings = async(req: Request, res: Response) => {

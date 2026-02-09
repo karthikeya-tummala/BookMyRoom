@@ -5,7 +5,7 @@ import {
   getEmployees,
   getEmployeeById,
   deleteEmployee
-} from "../controllers/employee/index.js";
+} from "../controllers/employee/v1/index.js";
 import {paginate} from "../middlewares/paginate.js";
 import {validateId} from "../middlewares/validateId.js";
 import {authMiddleware} from "../middlewares/authMiddleware.js";

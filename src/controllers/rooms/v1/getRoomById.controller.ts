@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RoomService } from "../../services/roomService.js";
+import { RoomService } from "../../../services/roomService.js";
 
 type Params = { id: string };
 

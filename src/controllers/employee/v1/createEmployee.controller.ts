@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import {z} from "zod";
-import { EmployeeService } from '../../services/employeeService.js';
+import { EmployeeService } from '../../../services/employeeService.js';
 
-import {ApiError} from "../../utils/errors.js";
-import {createEmployeeSchema} from "../../validators/auth.schema.js";
+import {ApiError} from "../../../utils/errors.js";
+import {createEmployeeSchema} from "../../../validators/auth.schema.js";
 
 export const createEmployee = async (req: Request, res: Response) => {
   const result = createEmployeeSchema.safeParse(req.body);

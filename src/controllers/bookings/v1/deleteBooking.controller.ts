@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BookingService } from "../../services/bookingService.js";
+import { BookingService } from "../../../services/bookingService.js";
 
 export const deleteBookingController = async (
   req: Request<{ id: string }>,

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
-import { EmployeeService } from '../../services/employeeService.js';
-import { ApiError } from '../../utils/errors.js';
-import { createEmployeeSchema } from '../../validators/auth.schema.js';
+import { EmployeeService } from '../../../services/employeeService.js';
+import { ApiError } from '../../../utils/errors.js';
+import { createEmployeeSchema } from '../../../validators/auth.schema.js';
 
 const updateEmployeeSchema = createEmployeeSchema.partial();
 

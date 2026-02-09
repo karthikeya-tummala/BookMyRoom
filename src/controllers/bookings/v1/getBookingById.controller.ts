@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { BookingService } from "../../services/bookingService.js";
-import {ApiError} from "../../utils/errors.js";
+import { BookingService } from "../../../services/bookingService.js";
+import {ApiError} from "../../../utils/errors.js";
 
 export const getBookingById = async (
   req: Request<{id: string}>,

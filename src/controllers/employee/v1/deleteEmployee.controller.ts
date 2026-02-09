@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { EmployeeService } from "../../services/employeeService.js";
-import {ApiError} from "../../utils/errors.js";
+import { EmployeeService } from "../../../services/employeeService.js";
+import {ApiError} from "../../../utils/errors.js";
 
 type Params = { id: string };
 

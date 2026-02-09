@@ -1,8 +1,8 @@
 import { Request, Response} from "express";
-import {createRoomSchema} from "../../validators/room.schema.js";
-import {ApiError} from "../../utils/errors.js";
+import {createRoomSchema} from "../../../validators/room.schema.js";
+import {ApiError} from "../../../utils/errors.js";
 import {z} from "zod";
-import {RoomService} from "../../services/roomService.js";
+import {RoomService} from "../../../services/roomService.js";
 
 export const createRoomController = async (req: Request, res: Response) => {
   const result = createRoomSchema.safeParse(req.body);

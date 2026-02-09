@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { EmployeeService } from "../../services/employeeService.js";
-import {USER_ROLES} from "../../models/Employee.model.js";
-import {EmployeeQuery} from "../../types/employeeQuery.js";
-import {parseSort} from "../../utils/sortParser.js";
-import {escapeRegex} from "../../utils/escapeRegex.js"
+import { EmployeeService } from "../../../services/employeeService.js";
+import {USER_ROLES} from "../../../models/Employee.model.js";
+import {EmployeeQuery} from "../../../types/employeeQuery.js";
+import {parseSort} from "../../../utils/sortParser.js";
+import {escapeRegex} from "../../../utils/escapeRegex.js"
 
 export const getEmployees = async (req: Request, res: Response) => {
   const {

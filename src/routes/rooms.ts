@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getRoomsController, createRoomController, updateRoomController, deleteRoomController, getRoomByIdController} from "../controllers/rooms/index.js";
+import {getRoomsController, createRoomController, updateRoomController, deleteRoomController, getRoomByIdController} from "../controllers/rooms/v1/index.js";
 import {paginate} from "../middlewares/paginate.js";
 import {validateId} from "../middlewares/validateId.js";
 import {adminMiddleware} from "../middlewares/adminMiddleware.js";
