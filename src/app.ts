@@ -1,6 +1,7 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import { router } from './routes/index.js';
 import {ApiError, ERROR_CODES} from "./utils/errors.js";
+import {apiLogger} from "./utils/apiLogger.js";
 
 
 export const app: Application = express();
@@ -8,12 +9,14 @@ export const app: Application = express();
 app.set("query parser", "extended");
 app.use(express.json());
 
+app.use(apiLogger);
+
 app.use(router);
 
 app.get('/health', (_req, res) => {
   res.json({
     status: 'Online',
-    health: 'Bad'
+    health: 'Good'
   });
 });
 
